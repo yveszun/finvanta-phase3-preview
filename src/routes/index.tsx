@@ -28,11 +28,11 @@ function Content({ stages, name }: { stages: Stage[]; name: string }) {
   const convs = conversions(stages);
 
   return (
-    <div className="space-y-10 sm:space-y-12">
+    <div className="space-y-8 sm:space-y-10">
       <section className="grid gap-6 lg:grid-cols-[1fr_280px] lg:items-end">
         <div>
           <p className="eyebrow">Outpatient mental health benefit · {name} scenario</p>
-          <h1 className="mt-3 max-w-3xl font-display text-4xl leading-[1.05] tracking-tight sm:text-5xl lg:text-6xl">
+          <h1 className="mt-3 max-w-3xl font-display text-4xl leading-[1.05] tracking-tight sm:text-5xl xl:text-[3.5rem]">
             Only <span className="text-accent">{last.count}</span> of {num(first.count)} eligible facilities have received payment.
           </h1>
           <p className="mt-3 text-muted-foreground">
