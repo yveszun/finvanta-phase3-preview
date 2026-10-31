@@ -56,7 +56,7 @@ function Content({ stages, name }: { stages: NonNullable<ReturnType<typeof useSc
           <div className="mt-4"><Tag kind="observed" /></div>
           <h3 className="mt-4 font-display text-3xl">Largest proportional drop-off: {worst.name.toLowerCase()}.</h3>
           <p className="mt-3 text-muted-foreground">
-            Only {pct(worst.rate)} of {worst.from.label.toLowerCase()} progressed to {worst.to.short.toLowerCase()} in the illustrative dataset ({num(worst.to.count)} of {num(worst.from.count)}).
+            Only {pct(worst.rate)} of {worst.from.label.toLowerCase()} progressed to {worst.name.toLowerCase()} in the illustrative dataset ({num(worst.to.count)} of {num(worst.from.count)}).
           </p>
           <p className="mt-4 text-xs text-muted-foreground">This identifies where the drop-off is observed. It does not establish its cause.</p>
         </article>
