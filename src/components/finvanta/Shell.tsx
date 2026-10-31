@@ -17,7 +17,7 @@ export function Shell({ children }: { children: ReactNode }) {
         </div>
       </div>
       <header className="border-b bg-background/90 backdrop-blur">
-        <div className="mx-auto flex max-w-6xl flex-wrap items-center gap-4 px-5 py-4">
+        <div className="mx-auto flex max-w-6xl flex-wrap items-center gap-4 px-5 py-3">
           <Link to="/" className="flex items-baseline gap-2">
             <span className="font-display text-2xl leading-none">Finvanta</span>
             <span className="eyebrow">Health</span>
@@ -30,12 +30,12 @@ export function Shell({ children }: { children: ReactNode }) {
               Explore evidence
             </Link>
           </nav>
-          <label className="ml-auto flex items-center gap-2 text-sm">
+          <label className="flex w-full sm:ml-auto sm:w-auto items-center gap-2 text-sm">
             <span className="eyebrow">Scenario</span>
             <select
               value={scenario.id}
               onChange={(e) => setScenarioId(e.target.value)}
-              className="rounded-md border bg-card px-3 py-1.5 text-sm"
+              className="flex-1 rounded-md border bg-card px-3 py-1.5 text-sm sm:flex-none"
             >
               {SCENARIOS.map((s) => (
                 <option key={s.id} value={s.id}>
@@ -46,7 +46,7 @@ export function Shell({ children }: { children: ReactNode }) {
           </label>
         </div>
       </header>
-      <main className="mx-auto max-w-6xl px-5 py-10 sm:py-14">{children}</main>
+      <main className="mx-auto max-w-6xl px-5 py-6 sm:py-10">{children}</main>
       <footer className="border-t">
         <div className="mx-auto max-w-6xl px-5 py-6 text-xs text-muted-foreground">
           Finvanta Health · PhilHealth outpatient mental health benefit package — illustrative demonstration. Findings describe observed drop-offs, not proven causes.
@@ -57,23 +57,26 @@ export function Shell({ children }: { children: ReactNode }) {
 }
 
 export function Unavailable({ name }: { name: string }) {
+  const { setScenarioId } = useScenario();
   return (
     <div className="rounded-xl border border-dashed bg-card p-10 text-center">
-      <p className="eyebrow">Scenario unavailable</p>
+      <p className="eyebrow">Data pending</p>
       <h2 className="mt-3 font-display text-3xl">{name}</h2>
       <p className="mx-auto mt-3 max-w-md text-sm text-muted-foreground">
-        Validated data for this scenario have not been integrated yet. Switch to Moderate Activity to view the demonstration.
+        This scenario is defined but its validated data have not been integrated. Finvanta does not estimate figures it cannot source.
       </p>
+      <button onClick={() => setScenarioId("moderate")} className="mt-5 rounded-full bg-primary px-4 py-2 text-sm text-primary-foreground hover:opacity-90">View Moderate Activity</button>
     </div>
   );
 }
 
-export function Tag({ kind }: { kind: "observed" | "possible" | "investigate" | "illustrative" }) {
+export function Tag({ kind }: { kind: "observed" | "rule" | "possible" | "investigate" | "illustrative" }) {
   const map = {
-    observed: ["Observed metric", "bg-primary text-primary-foreground"],
+    observed: ["Observed metric", "border border-primary text-primary"],
+    rule: ["Rule-based finding", "bg-ink text-ink-foreground"],
     possible: ["Possible explanation", "bg-secondary text-secondary-foreground border"],
     investigate: ["Suggested investigation", "bg-accent-soft text-accent-foreground"],
-    illustrative: ["Illustrative placeholder", "border border-dashed text-muted-foreground"],
+    illustrative: ["Not yet available", "border border-dashed text-muted-foreground"],
   } as const;
   const [label, cls] = map[kind];
   return <span className={`inline-flex rounded-full px-2.5 py-0.5 font-mono text-[10px] uppercase tracking-wider ${cls}`}>{label}</span>;

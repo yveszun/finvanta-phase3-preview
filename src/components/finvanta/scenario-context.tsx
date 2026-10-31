@@ -12,6 +12,6 @@ export function ScenarioProvider({ children }: { children: ReactNode }) {
 
 export function useScenario() {
   const c = useContext(ScenarioCtx);
-  if (!c) throw new Error("useScenario outside provider");
-  return c;
+  // Fallback keeps the page rendering if the provider is missing (e.g. after hot reload).
+  return c ?? { scenario: SCENARIOS[0]!, setScenarioId: () => {} };
 }
