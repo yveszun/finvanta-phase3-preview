@@ -16,7 +16,7 @@ type SectionId = (typeof SECTIONS)[number]["id"];
 
 export const Route = createFileRoute("/explore")({
   validateSearch: (s: Record<string, unknown>): { section?: SectionId } => {
-    const v = s.section;
+    const v = s["section"];
     return SECTIONS.some((x) => x.id === v) ? { section: v as SectionId } : {};
   },
   head: () => ({
