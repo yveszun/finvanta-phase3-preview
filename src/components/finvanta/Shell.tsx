@@ -9,10 +9,10 @@ export function Shell({ children }: { children: ReactNode }) {
     "rounded-full px-4 py-1.5 text-sm text-muted-foreground transition-colors hover:text-foreground";
   return (
     <div className="min-h-screen">
-      <div className="bg-ink text-ink-foreground">
+      <div className="relative z-10 bg-ink text-ink-foreground" role="note" aria-label="Data disclosure">
         <div className="mx-auto flex max-w-6xl items-center gap-2 px-5 py-2 text-xs">
-          <span className="inline-block h-1.5 w-1.5 rounded-full bg-accent" aria-hidden />
-          <span>Synthetic demonstration data. Not actual PhilHealth performance.</span>
+          <span className="inline-block h-1.5 w-1.5 shrink-0 rounded-full bg-accent" aria-hidden />
+          <span className="min-w-0">Synthetic demonstration data. Not actual PhilHealth performance.</span>
           <span className="ml-auto hidden text-ink-muted sm:inline">Rule-based diagnostics · Design prototype</span>
         </div>
       </div>
@@ -46,7 +46,7 @@ export function Shell({ children }: { children: ReactNode }) {
           </label>
         </div>
       </header>
-      <main className="mx-auto max-w-6xl px-5 py-6 sm:py-10">{children}</main>
+      <main className="mx-auto max-w-6xl px-5 py-6 sm:py-8">{children}</main>
       <footer className="border-t">
         <div className="mx-auto max-w-6xl px-5 py-6 text-xs text-muted-foreground">
           Finvanta Health · PhilHealth outpatient mental health benefit package — illustrative demonstration. Findings describe observed drop-offs, not proven causes.
