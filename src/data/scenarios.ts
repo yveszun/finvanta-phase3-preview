@@ -39,9 +39,9 @@ export function conversions(stages: Stage[]) {
   return stages.slice(1).map((s, i) => ({
     key: s.key,
     name: conversionNames[s.key] ?? s.label,
-    from: stages[i],
+    from: stages[i]!,
     to: s,
-    rate: (s.count / stages[i].count) * 100,
+    rate: (s.count / stages[i]!.count) * 100,
   }));
 }
 

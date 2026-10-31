@@ -6,7 +6,7 @@ const ScenarioCtx = createContext<Ctx | null>(null);
 
 export function ScenarioProvider({ children }: { children: ReactNode }) {
   const [id, setScenarioId] = useState("moderate");
-  const scenario = SCENARIOS.find((s) => s.id === id) ?? SCENARIOS[0];
+  const scenario = SCENARIOS.find((s) => s.id === id) ?? SCENARIOS[0]!;
   return <ScenarioCtx.Provider value={{ scenario, setScenarioId }}>{children}</ScenarioCtx.Provider>;
 }
 

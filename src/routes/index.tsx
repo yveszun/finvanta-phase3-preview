@@ -22,8 +22,8 @@ function Executive() {
 }
 
 function Content({ stages, name }: { stages: NonNullable<ReturnType<typeof useScenario>["scenario"]["stages"]>; name: string }) {
-  const first = stages[0];
-  const last = stages[stages.length - 1];
+  const first = stages[0]!;
+  const last = stages[stages.length - 1]!;
   const worst = largestDropoff(stages);
   const convs = conversions(stages);
 

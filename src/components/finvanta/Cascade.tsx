@@ -3,10 +3,10 @@ import { conversions, largestDropoff, num, pct, type Stage } from "@/data/scenar
 
 export function Cascade({ stages }: { stages: Stage[] }) {
   const [active, setActive] = useState(stages.length - 1);
-  const max = stages[0].count;
+  const max = stages[0]!.count;
   const convs = conversions(stages);
   const worst = largestDropoff(stages);
-  const sel = stages[active];
+  const sel = stages[active]!;
   const selConv = active > 0 ? convs[active - 1] : null;
 
   return (
