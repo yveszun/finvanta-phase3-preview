@@ -76,7 +76,7 @@ export function Tag({ kind }: { kind: "observed" | "rule" | "possible" | "invest
     rule: ["Rule-based finding", "bg-ink text-ink-foreground"],
     possible: ["Possible explanation", "bg-secondary text-secondary-foreground border"],
     investigate: ["Suggested investigation", "bg-accent-soft text-accent-foreground"],
-    illustrative: ["Illustrative placeholder", "border border-dashed text-muted-foreground"],
+    illustrative: ["Not yet available", "border border-dashed text-muted-foreground"],
   } as const;
   const [label, cls] = map[kind];
   return <span className={`inline-flex rounded-full px-2.5 py-0.5 font-mono text-[10px] uppercase tracking-wider ${cls}`}>{label}</span>;
