@@ -1,8 +1,10 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Shell, Tag, Unavailable } from "@/components/finvanta/Shell";
 import { Cascade } from "@/components/finvanta/Cascade";
+import { DecisionSummary } from "@/components/finvanta/decision/DecisionSummary";
 import { useScenario } from "@/components/finvanta/scenario-context";
 import { conversions, getDiagnosticInsights, largestDropoff, largestAbsoluteGap, num, pct, type Stage } from "@/data/scenarios";
+import { getDecisionSupport } from "@/data/decision-support";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -18,16 +20,17 @@ export const Route = createFileRoute("/")({
 
 function Executive() {
   const { scenario } = useScenario();
-  return <Shell>{scenario.stages ? <Content stages={scenario.stages} name={scenario.name} /> : <Unavailable name={scenario.name} />}</Shell>;
+  return <Shell>{scenario.stages ? <Content stages={scenario.stages} name={scenario.name} scenario={scenario} /> : <Unavailable name={scenario.name} />}</Shell>;
 }
 
-function Content({ stages, name }: { stages: Stage[]; name: string }) {
+function Content({ stages, name, scenario }: { stages: Stage[]; name: string; scenario: any }) {
   const first = stages[0]!;
   const last = stages[stages.length - 1]!;
   const worst = largestDropoff(stages);
   const convs = conversions(stages);
   const { investigation } = getDiagnosticInsights(stages);
   const largestAbsolute = largestAbsoluteGap(stages);
+  const decisionSupport = getDecisionSupport(scenario);
 
   return (
     <div className="space-y-7 sm:space-y-8">
@@ -81,6 +84,15 @@ function Content({ stages, name }: { stages: Stage[]; name: string }) {
               These findings identify where progression through the implementation cascade is limited. They do not establish why the gaps occur or which interventions would be effective. Further investigation is needed.
             </p>
           </article>
+          
+          {/* Decision Support Summary */}
+          {decisionSupport.hypotheses.length > 0 && (
+            <DecisionSummary 
+              hypotheses={decisionSupport.hypotheses}
+              stageName={worst.name}
+            />
+          )}
+          
           <Link to="/explore" search={{ section: "insights" }} className="inline-flex text-sm font-medium underline decoration-accent underline-offset-4 hover:text-accent">
             See the reasoning in Explore the Evidence →
           </Link>

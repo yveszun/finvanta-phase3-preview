@@ -2,8 +2,10 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import type { ReactNode } from "react";
 import { Shell, Tag, Unavailable } from "@/components/finvanta/Shell";
 import { Cascade } from "@/components/finvanta/Cascade";
+import { DecisionSection } from "@/components/finvanta/decision/DecisionSection";
 import { useScenario } from "@/components/finvanta/scenario-context";
 import { conversions, getDiagnosticInsights, largestDropoff, largestAbsoluteGap, num, pct, type Stage } from "@/data/scenarios";
+import { getDecisionSupport } from "@/data/decision-support";
 
 const SECTIONS = [
   { id: "overview", label: "Overview", lede: "The four facility stages of the benefit, as observed." },
@@ -11,6 +13,7 @@ const SECTIONS = [
   { id: "claims", label: "Claims processing", lede: "What the facility data can and cannot say about claims." },
   { id: "regional", label: "Regional analysis", lede: "Geographic variation in the cascade." },
   { id: "insights", label: "Diagnostic insights", lede: "How a measured drop-off becomes a question to investigate." },
+  { id: "decision", label: "Decision support", lede: "Hypotheses and response options for the identified gap." },
 ] as const;
 type SectionId = (typeof SECTIONS)[number]["id"];
 
@@ -82,6 +85,7 @@ function Explore() {
               {section === "claims" && <Claims stages={scenario.stages} />}
               {section === "regional" && <Regional />}
               {section === "insights" && <Insights stages={scenario.stages} />}
+              {section === "decision" && <Decision scenario={scenario} />}
             </div>
             <div className="mt-10 flex justify-between gap-4 border-t pt-4 text-sm">
               {prev ? <Link to="/explore" search={{ section: prev.id }} className="text-muted-foreground hover:text-foreground">← {prev.label}</Link> : <span />}
@@ -214,6 +218,42 @@ function EmptyState({ title, body, needs }: { title: string; body: string; needs
           <li key={n} className="flex gap-2"><span className="text-accent" aria-hidden>—</span>{n}</li>
         ))}
       </ul>
+    </div>
+  );
+}
+
+function Decision({ scenario }: { scenario: any }) {
+  const decisionSupport = getDecisionSupport(scenario);
+  
+  return (
+    <div className="space-y-6">
+      <div className="rounded-lg bg-blue-50 dark:bg-blue-950/20 border border-blue-200 dark:border-blue-900 px-4 py-3">
+        <p className="text-sm text-blue-900 dark:text-blue-100">
+          <strong>Experimental:</strong> This section demonstrates hypotheses and response options for the identified implementation gap. 
+          All content is synthetic and provisional — designed to illustrate the decision-support framework, not to guide actual policy decisions.
+        </p>
+      </div>
+
+      <div>
+        <Tag kind="investigate" />
+        <p className="mt-3 text-sm text-muted-foreground">
+          Based on the identified gap at <strong>{decisionSupport.context.stageName}</strong>, 
+          these hypotheses and response options are suggested for investigation. Evidence status: <strong>hypothesis</strong> (not yet verified).
+        </p>
+      </div>
+
+      <DecisionSection 
+        hypotheses={decisionSupport.hypotheses}
+        responses={decisionSupport.responses}
+      />
+
+      <div className="text-xs text-muted-foreground border-t pt-4">
+        <p>
+          <strong>Note:</strong> These hypotheses represent plausible explanations based on theory, analogous contexts, and program design. 
+          They have not been verified through direct evidence. Response options include key institutional, temporal, financial, and legal 
+          assumptions that require validation before implementation.
+        </p>
+      </div>
     </div>
   );
 }
