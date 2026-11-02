@@ -54,7 +54,7 @@ function Explore() {
       {!scenario.stages ? (
         <div className="mt-8"><Unavailable name={scenario.name} /></div>
       ) : (
-        <div className="mt-8 grid gap-6 md:grid-cols-[200px_1fr] md:gap-10">
+        <div className="mt-8 grid gap-6 md:grid-cols-[200px_1fr] md:gap-10 lg:grid-cols-[220px_1fr] lg:gap-12">
           <nav aria-label="Evidence sections" className="-mx-5 overflow-x-auto px-5 md:mx-0 md:px-0">
             <ol className="flex gap-1 border-b md:flex-col md:border-b-0 md:border-l">
               {SECTIONS.map((s, i) => {
@@ -76,7 +76,7 @@ function Explore() {
             </ol>
           </nav>
 
-          <section className="min-w-0 max-w-full" aria-labelledby="sec-title">
+          <section className="min-w-0" aria-labelledby="sec-title">
             <h2 id="sec-title" className="font-display text-3xl">{cur.label}</h2>
             <p className="mt-1 text-sm text-muted-foreground">{cur.lede}</p>
             <div className="mt-6">

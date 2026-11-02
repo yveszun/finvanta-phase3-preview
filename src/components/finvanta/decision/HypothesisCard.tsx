@@ -48,85 +48,94 @@ export function HypothesisCard({ hypothesis }: HypothesisCardProps) {
       </button>
 
       {expanded && (
-        <div className="space-y-4 border-t px-4 py-3 sm:px-5 sm:py-4">
-          {/* Statement */}
-          <div>
+        <div className="border-t px-4 py-3 sm:px-5 sm:py-4">
+          {/* Statement - Full Width */}
+          <div className="mb-4">
             <h5 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Statement</h5>
             <p className="mt-1.5 text-sm leading-relaxed">{hypothesis.statement}</p>
           </div>
 
-          {/* Plausibility Basis */}
-          <div>
-            <h5 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-              Why This Is Plausible
-            </h5>
-            <div className="mt-1.5 space-y-2 text-sm">
+          {/* Two-column layout on desktop */}
+          <div className="grid gap-6 lg:grid-cols-2">
+            {/* Left Column: Plausibility & Context */}
+            <div className="space-y-4">
+              {/* Plausibility Basis */}
               <div>
-                <span className="font-medium">Theory:</span>
-                <p className="mt-0.5 leading-relaxed text-muted-foreground">{hypothesis.plausibilityBasis.theory}</p>
+                <h5 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                  Why This Is Plausible
+                </h5>
+                <div className="mt-1.5 space-y-2 text-sm">
+                  <div>
+                    <span className="font-medium">Theory:</span>
+                    <p className="mt-0.5 leading-relaxed text-muted-foreground">{hypothesis.plausibilityBasis.theory}</p>
+                  </div>
+                  <div>
+                    <span className="font-medium">Analogous Cases:</span>
+                    <p className="mt-0.5 leading-relaxed text-muted-foreground">{hypothesis.plausibilityBasis.analogousCases}</p>
+                  </div>
+                  <div>
+                    <span className="font-medium">Context:</span>
+                    <p className="mt-0.5 leading-relaxed text-muted-foreground">{hypothesis.plausibilityBasis.contextualFactors}</p>
+                  </div>
+                </div>
               </div>
+            </div>
+
+            {/* Right Column: Verification Status */}
+            <div className="space-y-4">
+              {/* Verification Status */}
               <div>
-                <span className="font-medium">Analogous Cases:</span>
-                <p className="mt-0.5 leading-relaxed text-muted-foreground">{hypothesis.plausibilityBasis.analogousCases}</p>
-              </div>
-              <div>
-                <span className="font-medium">Context:</span>
-                <p className="mt-0.5 leading-relaxed text-muted-foreground">{hypothesis.plausibilityBasis.contextualFactors}</p>
+                <h5 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                  Verification Status
+                </h5>
+                <div className="mt-1.5 space-y-2 text-sm">
+                  <div>
+                    <span className="font-medium">Direct Evidence:</span>
+                    <p className="mt-0.5 leading-relaxed text-muted-foreground">{hypothesis.verificationStatus.directEvidence}</p>
+                  </div>
+                  <div>
+                    <span className="font-medium">Alternative Explanations:</span>
+                    <ul className="mt-1 space-y-0.5 text-muted-foreground">
+                      {hypothesis.verificationStatus.alternativeExplanations.map((alt) => (
+                        <li key={alt} className="flex gap-2 leading-relaxed">
+                          <span className="text-accent">•</span>
+                          <span className="flex-1">{alt}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                  <div>
+                    <span className="font-medium">Quantified Contribution:</span>
+                    <p className="mt-0.5 leading-relaxed text-muted-foreground">{hypothesis.verificationStatus.quantifiedContribution}</p>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
 
-          {/* Verification Status */}
-          <div>
-            <h5 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-              Verification Status
-            </h5>
-            <div className="mt-1.5 space-y-2 text-sm">
-              <div>
-                <span className="font-medium">Direct Evidence:</span>
-                <p className="mt-0.5 leading-relaxed text-muted-foreground">{hypothesis.verificationStatus.directEvidence}</p>
-              </div>
-              <div>
-                <span className="font-medium">Alternative Explanations:</span>
-                <ul className="mt-1 space-y-0.5 text-muted-foreground">
-                  {hypothesis.verificationStatus.alternativeExplanations.map((alt) => (
-                    <li key={alt} className="flex gap-2 leading-relaxed">
-                      <span className="text-accent">•</span>
-                      <span className="flex-1">{alt}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              <div>
-                <span className="font-medium">Quantified Contribution:</span>
-                <p className="mt-0.5 leading-relaxed text-muted-foreground">{hypothesis.verificationStatus.quantifiedContribution}</p>
-              </div>
-            </div>
-          </div>
-
-          {/* Data Needed */}
-          <div>
+          {/* Data Needed - Full Width */}
+          <div className="mt-4">
             <h5 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
               Data Needed to Verify or Refute
             </h5>
-            <div className="mt-2 space-y-2.5 text-sm">
+            <div className="mt-2 grid gap-4 sm:grid-cols-2">
               <div>
-                <span className="font-medium text-green-600 dark:text-green-400">To Verify (would support):</span>
-                <ul className="mt-0.5 space-y-0.5 text-muted-foreground">
+                <span className="text-sm font-medium text-green-600 dark:text-green-400">To Verify (would support):</span>
+                <ul className="mt-1 space-y-0.5 text-sm text-muted-foreground">
                   {hypothesis.verificationData.toVerify.map((item, i) => (
                     <li key={i} className="flex gap-2 leading-relaxed">
-                      <span className="text-green-600 dark:text-green-400">✓</span>
+                      <span className="shrink-0 text-green-600 dark:text-green-400">✓</span>
                       <span className="flex-1">{item}</span>
                     </li>
                   ))}
                 </ul>
               </div>
               <div>
-                <span className="font-medium text-red-600 dark:text-red-400">To Refute (would contradict):</span>
-                <ul className="mt-0.5 space-y-0.5 text-muted-foreground">
+                <span className="text-sm font-medium text-red-600 dark:text-red-400">To Refute (would contradict):</span>
+                <ul className="mt-1 space-y-0.5 text-sm text-muted-foreground">
                   {hypothesis.verificationData.toRefute.map((item, i) => (
                     <li key={i} className="flex gap-2 leading-relaxed">
-                      <span className="text-red-600 dark:text-red-400">✗</span>
+                      <span className="shrink-0 text-red-600 dark:text-red-400">✗</span>
                       <span className="flex-1">{item}</span>
                     </li>
                   ))}
@@ -135,8 +144,8 @@ export function HypothesisCard({ hypothesis }: HypothesisCardProps) {
             </div>
           </div>
 
-          {/* Disclaimer */}
-          <div className="rounded border-l-4 border-amber-500 bg-amber-50 p-3 text-xs leading-relaxed dark:bg-amber-950/20">
+          {/* Disclaimer - Full Width */}
+          <div className="mt-4 rounded border-l-4 border-amber-500 bg-amber-50 p-3 text-xs leading-relaxed dark:bg-amber-950/20">
             <p className="font-medium text-amber-900 dark:text-amber-100">
               This is a plausible hypothesis requiring verification.
             </p>
