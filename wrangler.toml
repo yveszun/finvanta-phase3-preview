@@ -4,6 +4,8 @@
 # IMPORTANT: This configuration is specific to the preview repository
 # Do NOT merge this file into the main production repository
 
+# Finvanta Phase 3 Preview - Cloudflare Workers Configuration
+# Updated: 2026-10-25
 name = "finvanta-phase3-preview"
 compatibility_date = "2026-11-02"
 compatibility_flags = ["nodejs_compat"]
