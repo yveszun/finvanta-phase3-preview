@@ -3,6 +3,17 @@
 Standalone design prototype. Synthetic demonstration data only. Not connected to the
 existing Finvanta repositories or deployments.
 
+## Repository
+
+`finvanta-health-executive-intelligence` — a brand-new private repository, created and
+synced from Project settings → Git. It is the prototype's only home; the existing Finvanta
+repositories are never pushed to, and nothing here is deployed to the live Finvanta app.
+
+- Lovable pushes accepted work to the synced branch of this repository automatically.
+- Kiro should be added as a collaborator on this repository only.
+- Anything Kiro brings back into the live Finvanta application arrives as its own
+  separately reviewed change, not as a sync from here.
+
 ## Stack
 React 19 + TypeScript, Vite 7, TanStack Router/Start, Tailwind CSS v4 (tokens in `src/styles.css`).
 
