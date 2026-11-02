@@ -4,6 +4,8 @@ import {
   conversions,
   largestDropoff,
   getDiagnosticInsights,
+  absoluteGaps,
+  largestAbsoluteGap,
   pct,
   num,
   type Stage,
@@ -311,5 +313,134 @@ describe("Cascade monotonicity (data sanity check)", () => {
       
       expect(paidCount).toBeLessThan(claimsCount);
     });
+  });
+});
+
+describe("absoluteGaps() calculation", () => {
+  it("should calculate facility count gaps at each stage", () => {
+    const scenario = SCENARIOS.find((s) => s.id === "moderate-bottleneck")!;
+    const gaps = absoluteGaps(scenario.stages!);
+    
+    expect(gaps).toHaveLength(3);
+    expect(gaps[0]!.gap).toBe(1284); // 1500 - 216
+    expect(gaps[1]!.gap).toBe(132);  // 216 - 84
+    expect(gaps[2]!.gap).toBe(15);   // 84 - 69
+  });
+
+  it("should include stage metadata", () => {
+    const scenario = SCENARIOS.find((s) => s.id === "moderate-bottleneck")!;
+    const gaps = absoluteGaps(scenario.stages!);
+    
+    expect(gaps[0]!.key).toBe("accredited");
+    expect(gaps[0]!.name).toBe("Accreditation");
+    expect(gaps[0]!.from.count).toBe(1500);
+    expect(gaps[0]!.to.count).toBe(216);
+  });
+
+  it("should work for all 6 scenarios", () => {
+    SCENARIOS.forEach((scenario) => {
+      const gaps = absoluteGaps(scenario.stages!);
+      expect(gaps).toHaveLength(3);
+      gaps.forEach((g) => {
+        expect(g.gap).toBeGreaterThanOrEqual(0);
+        expect(g.from.count).toBeGreaterThanOrEqual(g.to.count);
+      });
+    });
+  });
+});
+
+describe("largestAbsoluteGap() identification", () => {
+  it("should identify stage with largest facility count gap", () => {
+    const scenario = SCENARIOS.find((s) => s.id === "moderate-bottleneck")!;
+    const largest = largestAbsoluteGap(scenario.stages!);
+    
+    expect(largest.key).toBe("accredited");
+    expect(largest.gap).toBe(1284);
+    expect(largest.name).toBe("Accreditation");
+  });
+
+  it("should work for all 6 scenarios", () => {
+    SCENARIOS.forEach((scenario) => {
+      const largest = largestAbsoluteGap(scenario.stages!);
+      expect(largest.gap).toBeGreaterThan(0);
+      expect(largest.key).toMatch(/accredited|claims|paid/);
+    });
+  });
+});
+
+describe("Proportional vs. Absolute bottleneck comparison", () => {
+  it("should identify when both measures align", () => {
+    const scenario = SCENARIOS.find((s) => s.id === "moderate-bottleneck")!;
+    const proportional = largestDropoff(scenario.stages!);
+    const absolute = largestAbsoluteGap(scenario.stages!);
+    
+    expect(proportional.key).toBe("accredited");
+    expect(absolute.key).toBe("accredited");
+    expect(proportional.key).toBe(absolute.key);
+  });
+
+  it("should calculate both measures independently for all scenarios", () => {
+    SCENARIOS.forEach((scenario) => {
+      const proportional = largestDropoff(scenario.stages!);
+      const absolute = largestAbsoluteGap(scenario.stages!);
+      
+      // Both should return valid results
+      expect(proportional.rate).toBeLessThan(100);
+      expect(absolute.gap).toBeGreaterThan(0);
+      
+      // Document alignment
+      const aligned = proportional.key === absolute.key;
+      console.log(`${scenario.id}: Proportional=${proportional.key} (${proportional.rate.toFixed(1)}%), Absolute=${absolute.key} (${absolute.gap} facilities), Aligned=${aligned}`);
+    });
+  });
+});
+
+describe("Conversion rate terminology", () => {
+  it("should maintain precise definition of conversion rate", () => {
+    const scenario = SCENARIOS.find((s) => s.id === "moderate-bottleneck")!;
+    const convs = conversions(scenario.stages!);
+    
+    // Conversion rate = proportion progressing to next stage
+    const accredConversion = convs.find((c) => c.key === "accredited")!;
+    expect(accredConversion.rate).toBeCloseTo(14.4, 1); // 216/1500 = 14.4%
+    
+    // Proportional drop-off = 100% - conversion rate
+    const dropOff = 100 - accredConversion.rate;
+    expect(dropOff).toBeCloseTo(85.6, 1); // 85.6% do not progress
+  });
+
+  it("should distinguish conversion rate, proportional drop-off, and absolute gap", () => {
+    const scenario = SCENARIOS.find((s) => s.id === "moderate-bottleneck")!;
+    const convs = conversions(scenario.stages!);
+    const gaps = absoluteGaps(scenario.stages!);
+    
+    const accredConv = convs.find((c) => c.key === "accredited")!;
+    const accredGap = gaps.find((g) => g.key === "accredited")!;
+    
+    // Conversion rate: proportion progressing
+    expect(accredConv.rate).toBeCloseTo(14.4, 1);
+    
+    // Proportional drop-off: proportion not progressing
+    const dropOff = 100 - accredConv.rate;
+    expect(dropOff).toBeCloseTo(85.6, 1);
+    
+    // Absolute gap: count difference
+    expect(accredGap.gap).toBe(1284);
+    
+    // Verify calculation
+    expect(accredConv.from.count - accredConv.to.count).toBe(accredGap.gap);
+  });
+});
+
+describe("Neutral language verification", () => {
+  it("should use gap terminology not loss/block language", () => {
+    const scenario = SCENARIOS.find((s) => s.id === "moderate-bottleneck")!;
+    const gaps = absoluteGaps(scenario.stages!);
+    
+    // Function returns "gap" property
+    expect(gaps[0]).toHaveProperty("gap");
+    expect(gaps[0]).not.toHaveProperty("lost");
+    expect(gaps[0]).not.toHaveProperty("blocked");
+    expect(gaps[0]).not.toHaveProperty("excluded");
   });
 });

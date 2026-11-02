@@ -106,6 +106,27 @@ export const pct = (n: number) => `${n.toFixed(1)}%`;
 export const num = (n: number) => n.toLocaleString("en-US");
 
 /**
+ * Calculate absolute gaps (facility count differences between consecutive stages).
+ * Provides facility counts alongside proportional measures.
+ */
+export function absoluteGaps(stages: Stage[]) {
+  return stages.slice(1).map((s, i) => ({
+    key: s.key,
+    name: conversionNames[s.key] ?? s.label,
+    from: stages[i]!,
+    to: s,
+    gap: stages[i]!.count - s.count,
+  }));
+}
+
+/**
+ * Find the stage with the largest absolute gap (most facilities between stages).
+ */
+export function largestAbsoluteGap(stages: Stage[]) {
+  return absoluteGaps(stages).reduce((a, b) => (b.gap > a.gap ? b : a));
+}
+
+/**
  * Generate diagnostic insights based on the identified bottleneck stage.
  * Returns context-specific text for observed data, rule conclusions, hypotheses, and investigations.
  */
