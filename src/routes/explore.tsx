@@ -76,7 +76,7 @@ function Explore() {
             </ol>
           </nav>
 
-          <section className="min-w-0" aria-labelledby="sec-title">
+          <section className="min-w-0 max-w-full" aria-labelledby="sec-title">
             <h2 id="sec-title" className="font-display text-3xl">{cur.label}</h2>
             <p className="mt-1 text-sm text-muted-foreground">{cur.lede}</p>
             <div className="mt-6">

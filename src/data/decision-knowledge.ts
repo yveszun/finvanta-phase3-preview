@@ -148,8 +148,8 @@ const ACCREDITATION_HYPOTHESES: Hypothesis[] = [
     
     plausibilityBasis: {
       theory: "Transaction cost theory suggests that administrative burden deters participation when staff capacity is limited. Implementation science literature identifies documentation requirements as common barriers in low-resource settings.",
-      analogousCases: "Gavi implementation studies show facility paperwork burden correlates with lower participation rates. Medicare accreditation in the US shows smaller facilities struggle more with documentation than large hospitals.",
-      contextualFactors: "PhilHealth 2024 mental health implementation study mentions 'administrative capacity challenges' in general (not specific to documentation). Primary care facilities in Philippines typically have limited administrative staff."
+      analogousCases: "Facility participation in health programs across contexts shows paperwork burden correlates with lower uptake, particularly for smaller facilities with limited administrative capacity.",
+      contextualFactors: "Mental health benefit package implementation in the Philippines has noted general administrative capacity challenges. Primary care facilities typically have limited administrative staff."
     },
     
     verificationStatus: {
@@ -164,16 +164,16 @@ const ACCREDITATION_HYPOTHESES: Hypothesis[] = [
     
     verificationData: {
       toVerify: [
-        "Application completion rates <60% by facility size",
-        "Rejection reasons show >30% documentation-related issues",
-        "Facilities with <2 administrative staff have significantly lower accreditation rates",
-        "Time-to-complete application surveys indicate documentation burden"
+        "Application completion rates vary significantly by facility size, with smaller facilities completing fewer applications",
+        "Rejection reasons analysis shows documentation issues as a primary cause",
+        "Facilities with fewer administrative staff have lower accreditation success rates",
+        "Time-to-complete application surveys indicate documentation burden as a barrier"
       ],
       toRefute: [
-        "Application completion rates >80%",
-        "Documentation-related rejections <10%",
-        "No correlation between administrative staffing levels and accreditation success",
-        "Similar benefits with different documentation requirements show same accreditation rate"
+        "Application completion rates are consistently high across all facility sizes",
+        "Documentation-related rejections are rare compared to other reasons",
+        "Administrative staffing levels show no correlation with accreditation success",
+        "Benefits with similar documentation requirements have similar accreditation rates regardless of burden"
       ]
     }
   },
@@ -204,16 +204,16 @@ const ACCREDITATION_HYPOTHESES: Hypothesis[] = [
     
     verificationData: {
       toVerify: [
-        "Fee schedule shows material costs (>₱10,000 total)",
+        "Fee schedule shows material costs that pose barrier to smaller facilities",
         "Facility surveys cite cost as primary barrier",
-        "Accreditation rate correlates with facility size/budget",
-        "Cost subsidy experiments show increased participation"
+        "Accreditation rate correlates with facility size and budget capacity",
+        "Cost subsidy or waiver programs result in increased participation"
       ],
       toRefute: [
-        "Fees are minimal (<₱5,000 total)",
+        "Fees are minimal relative to facility budgets",
         "Facilities cite other barriers more frequently than cost",
         "No correlation between facility financial status and accreditation",
-        "High-cost facilities have same low accreditation rate as low-cost"
+        "Higher-cost and lower-cost facilities show similar accreditation rates"
       ]
     }
   },
@@ -228,8 +228,8 @@ const ACCREDITATION_HYPOTHESES: Hypothesis[] = [
     
     plausibilityBasis: {
       theory: "Human capital theory suggests service provision requires trained workforce. Health systems research shows workforce distribution affects service availability.",
-      analogousCases: "Mental health workforce shortages documented across LMICs. Specialized service accreditation often depends on specialist availability.",
-      contextualFactors: "PhilHealth 2024 technical assistance report notes 'scarcity of mental health professionals.' Philippines has estimated low psychiatrist-to-population ratios."
+      analogousCases: "Mental health workforce shortages are documented across low- and middle-income countries. Specialized service accreditation often depends on specialist availability.",
+      contextualFactors: "Scarcity of mental health professionals has been noted in Philippine health system assessments. The Philippines has low psychiatrist-to-population ratios relative to service needs."
     },
     
     verificationStatus: {
@@ -284,16 +284,16 @@ const ACCREDITATION_HYPOTHESES: Hypothesis[] = [
     
     verificationData: {
       toVerify: [
-        "Facility surveys show <50% awareness of benefit package",
-        "Information dissemination records show incomplete coverage",
-        "Inquiries to PhilHealth about benefit are low",
-        "Awareness campaigns correlate with increased applications"
+        "Facility surveys show low awareness of benefit package details",
+        "Information dissemination records show incomplete coverage of eligible facilities",
+        "Inquiries to PhilHealth about the benefit are infrequent",
+        "Awareness campaigns correlate with increased application submissions"
       ],
       toRefute: [
-        "Facility surveys show >80% awareness",
-        "Comprehensive information dissemination documented",
-        "Facilities aware of benefit but don't apply for other reasons",
-        "No correlation between information campaigns and application rates"
+        "Facility surveys show high awareness of benefit package",
+        "Comprehensive information dissemination to eligible facilities is documented",
+        "Facilities are aware of benefit but don't apply for other reasons",
+        "Information campaigns show no correlation with application rates"
       ]
     }
   }
@@ -328,16 +328,16 @@ const CLAIMS_HYPOTHESES: Hypothesis[] = [
     
     verificationData: {
       toVerify: [
-        "System login rates <50% among accredited facilities",
-        "Technical support requests are high",
-        "User experience surveys show usability problems",
-        "System improvements correlate with increased submissions"
+        "System login rates among accredited facilities are low",
+        "Technical support requests are frequent and indicate usability problems",
+        "User experience surveys show difficulties with system navigation or access",
+        "System improvements correlate with increased claim submissions"
       ],
       toRefute: [
-        "System login rates >80%",
-        "Few technical support requests",
-        "User satisfaction with system is high",
-        "Facilities access system but don't submit claims"
+        "System login rates among accredited facilities are high",
+        "Few technical support requests related to system access or usability",
+        "User satisfaction with the system is high",
+        "Facilities access the system regularly but don't submit claims"
       ]
     }
   },
@@ -367,16 +367,16 @@ const CLAIMS_HYPOTHESES: Hypothesis[] = [
     
     verificationData: {
       toVerify: [
-        "Facility service delivery records show <10 patients/month",
-        "Regional mental health burden estimates exceed observed utilization",
+        "Facility service delivery records show low patient volumes for mental health services",
+        "Regional mental health burden estimates significantly exceed observed facility utilization",
         "Facilities cite low demand as reason for not filing claims",
         "Patient volumes correlate with claims submission rates"
       ],
       toRefute: [
         "Facilities see adequate patient volumes but don't file claims",
-        "No correlation between patient volume and claims submission",
-        "Demand generation campaigns don't increase claims",
-        "Facilities in high-burden areas have same low submission rate"
+        "Patient volume shows no correlation with claims submission likelihood",
+        "Demand generation campaigns don't increase claims submissions",
+        "Facilities in high-burden areas show similar low submission rates"
       ]
     }
   },
@@ -450,16 +450,16 @@ const PAYMENT_HYPOTHESES: Hypothesis[] = [
     
     verificationData: {
       toVerify: [
-        "Median adjudication time >60 days",
-        "Backlog analysis shows capacity constraints",
-        "Facilities cite delays as reason for discontinuing service",
+        "Median adjudication time substantially exceeds standard processing windows",
+        "Backlog analysis shows capacity constraints in claims processing",
+        "Facilities cite payment delays as reason for discontinuing service",
         "Accelerated processing correlates with continued claims submission"
       ],
       toRefute: [
-        "Median adjudication time <30 days",
-        "No processing backlog documented",
-        "Facilities receive timely payments but still discontinue",
-        "Processing time doesn't correlate with facility participation"
+        "Median adjudication time meets or beats standard processing windows",
+        "No significant processing backlog documented",
+        "Facilities receive timely payments but still discontinue services",
+        "Processing time shows no correlation with facility participation"
       ]
     }
   },
@@ -489,15 +489,15 @@ const PAYMENT_HYPOTHESES: Hypothesis[] = [
     
     verificationData: {
       toVerify: [
-        "Denial reason analysis shows >40% documentation issues",
-        "Documentation audits find frequent deficiencies",
-        "Training on documentation improves approval rates",
-        "Documentation quality scores correlate with payment receipt"
+        "Denial reason analysis shows documentation issues as a leading cause",
+        "Documentation audits find frequent deficiencies in submitted claims",
+        "Training on documentation standards improves approval rates",
+        "Documentation quality assessments correlate with payment receipt"
       ],
       toRefute: [
-        "Documentation-related denials <10%",
-        "Audits show adequate documentation quality",
-        "Training doesn't improve approval rates",
+        "Documentation-related denials are rare compared to other reasons",
+        "Audits show adequate documentation quality in submitted claims",
+        "Documentation training shows no improvement in approval rates",
         "Well-documented claims still denied at high rates"
       ]
     }
@@ -513,8 +513,8 @@ const PAYMENT_HYPOTHESES: Hypothesis[] = [
     
     plausibilityBasis: {
       theory: "Economic sustainability requires revenue ≥ cost. Provider economics literature shows rate adequacy affects service provision decisions.",
-      analogousCases: "Medicaid and Medicare rate adequacy studies show rate impacts on participation. LMIC benefit package studies cite inadequate rates.",
-      contextualFactors: "Mental health service costs may exceed general care. Cost-of-service data for Philippines may be limited."
+      analogousCases: "Health insurance rate adequacy studies across contexts show reimbursement levels impact provider participation. Low- and middle-income country benefit packages face challenges with adequate rate-setting.",
+      contextualFactors: "Mental health service costs may exceed general care. Cost-of-service data for the Philippines may be limited."
     },
     
     verificationStatus: {
@@ -528,16 +528,16 @@ const PAYMENT_HYPOTHESES: Hypothesis[] = [
     
     verificationData: {
       toVerify: [
-        "Cost-of-service studies show rates <80% of costs",
-        "Facility surveys cite inadequate rates as barrier",
+        "Cost-of-service studies show reimbursement rates below actual delivery costs",
+        "Facility surveys cite inadequate reimbursement rates as barrier to continued service",
         "Service discontinuation correlates with financial viability concerns",
-        "Rate increases correlate with sustained participation"
+        "Rate increases correlate with sustained facility participation"
       ],
       toRefute: [
-        "Rates exceed or match service costs",
-        "Facilities don't cite rates as barrier",
-        "Profitable facilities still discontinue service",
-        "Rate changes don't affect participation"
+        "Reimbursement rates exceed or match documented service costs",
+        "Facilities don't cite rates as primary barrier to service provision",
+        "Financially viable facilities still discontinue services at similar rates",
+        "Rate changes show no effect on facility participation patterns"
       ]
     }
   }

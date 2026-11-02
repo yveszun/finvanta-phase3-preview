@@ -109,9 +109,6 @@ export function HypothesisCard({ hypothesis }: HypothesisCardProps) {
             <h5 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
               Data Needed to Verify or Refute
             </h5>
-            <p className="mt-1 text-xs italic text-muted-foreground">
-              Illustrative verification criteria — specific thresholds would require empirical justification
-            </p>
             <div className="mt-2 space-y-2.5 text-sm">
               <div>
                 <span className="font-medium text-green-600 dark:text-green-400">To Verify (would support):</span>
