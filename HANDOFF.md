@@ -5,9 +5,10 @@ existing Finvanta repositories or deployments.
 
 ## Repository
 
-`finvanta-health-executive-intelligence` — a brand-new private repository, created and
-synced from Project settings → Git. It is the prototype's only home; the existing Finvanta
-repositories are never pushed to, and nothing here is deployed to the live Finvanta app.
+https://github.com/yveszun/finvanta-health-executive-intelligence — a brand-new private
+repository, created and synced from Project settings → Git. It is the prototype's only home;
+the existing Finvanta repositories are never pushed to, and nothing here is deployed to the
+live Finvanta app.
 
 - Lovable pushes accepted work to the synced branch of this repository automatically.
 - Kiro should be added as a collaborator on this repository only.
