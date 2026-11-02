@@ -6,7 +6,9 @@ existing Finvanta repositories or deployments.
 ## Repository
 
 https://github.com/yveszun/finvanta-health-executive-intelligence — a brand-new private
-repository, created and synced from Project settings → Git. It is the prototype's only home;
+repository, created and synced from Project settings → Git. Connection confirmed by the
+owner on 2026-11-02: the Lovable GitHub app is installed with access to this repository
+only ("Only select repositories"). It is the prototype's only home;
 the existing Finvanta repositories are never pushed to, and nothing here is deployed to the
 live Finvanta app.
 
