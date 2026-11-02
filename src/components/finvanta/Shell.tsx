@@ -65,7 +65,7 @@ export function Unavailable({ name }: { name: string }) {
       <p className="mx-auto mt-3 max-w-md text-sm text-muted-foreground">
         This scenario is defined but its validated data have not been integrated. Finvanta does not estimate figures it cannot source.
       </p>
-      <button onClick={() => setScenarioId("moderate")} className="mt-5 rounded-full bg-primary px-4 py-2 text-sm text-primary-foreground hover:opacity-90">View Moderate Activity</button>
+      <button onClick={() => setScenarioId("moderate-bottleneck")} className="mt-5 rounded-full bg-primary px-4 py-2 text-sm text-primary-foreground hover:opacity-90">View Moderate Activity</button>
     </div>
   );
 }

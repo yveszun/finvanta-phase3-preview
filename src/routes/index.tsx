@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { Shell, Tag, Unavailable } from "@/components/finvanta/Shell";
 import { Cascade } from "@/components/finvanta/Cascade";
 import { useScenario } from "@/components/finvanta/scenario-context";
-import { conversions, largestDropoff, num, pct, type Stage } from "@/data/scenarios";
+import { conversions, getDiagnosticInsights, largestDropoff, num, pct, type Stage } from "@/data/scenarios";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -26,6 +26,7 @@ function Content({ stages, name }: { stages: Stage[]; name: string }) {
   const last = stages[stages.length - 1]!;
   const worst = largestDropoff(stages);
   const convs = conversions(stages);
+  const { investigation } = getDiagnosticInsights(stages);
 
   return (
     <div className="space-y-7 sm:space-y-8">
@@ -58,13 +59,13 @@ function Content({ stages, name }: { stages: Stage[]; name: string }) {
             <Tag kind="rule" />
             <h3 className="mt-3 font-display text-2xl leading-snug sm:text-3xl">Largest proportional drop-off: {worst.name.toLowerCase()}.</h3>
             <p className="mt-2 text-sm text-muted-foreground">
-              Only {pct(worst.rate)} of eligible facilities progressed to accreditation in the illustrative dataset ({num(worst.to.count)} of {num(worst.from.count)}). This locates the drop-off; it does not establish its cause.
+              Only {pct(worst.rate)} of eligible facilities progressed through this stage in the illustrative dataset ({num(worst.to.count)} of {num(worst.from.count)}). This locates the drop-off; it does not establish its cause.
             </p>
           </article>
           <article className="rounded-lg bg-accent-soft p-5">
             <Tag kind="investigate" />
             <p className="mt-3 font-display text-xl leading-snug">
-              Examine facility accreditation requirements, readiness, and administrative processes to understand the observed drop-off.
+              {investigation}
             </p>
             <p className="mt-2 text-xs text-muted-foreground">Rule-based suggestion triggered by the lowest stage conversion. Not AI-generated.</p>
           </article>
