@@ -1,0 +1,22 @@
+# Cloudflare Workers Configuration for Phase 3 Preview
+# This file is for the preview deployment only (finvanta-phase3-preview)
+# 
+# IMPORTANT: This configuration is specific to the preview repository
+# Do NOT merge this file into the main production repository
+
+name = "finvanta-phase3-preview"
+compatibility_date = "2026-11-02"
+compatibility_flags = ["nodejs_compat"]
+
+# Build configuration
+[build]
+command = "npm run build"
+
+# The build outputs to .output/server/ which contains:
+# - index.mjs (Nitro SSR entry point)
+# - Static assets referenced via ASSETS binding
+# Cloudflare will use the wrangler.json generated in .output/server/
+# but this wrangler.toml provides the deployment name override
+
+# Note: Actual deployment happens from .output/server/wrangler.json
+# This file ensures the correct name is used for the preview deployment
