@@ -88,8 +88,7 @@ function Content({ stages, name, scenario }: { stages: Stage[]; name: string; sc
           {/* Decision Support Summary */}
           {decisionSupport.hypotheses.length > 0 && (
             <DecisionSummary 
-              hypotheses={decisionSupport.hypotheses}
-              stageName={worst.name}
+              decisionSupport={decisionSupport}
             />
           )}
           
