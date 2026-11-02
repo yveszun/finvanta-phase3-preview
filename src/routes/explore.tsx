@@ -3,7 +3,7 @@ import type { ReactNode } from "react";
 import { Shell, Tag, Unavailable } from "@/components/finvanta/Shell";
 import { Cascade } from "@/components/finvanta/Cascade";
 import { useScenario } from "@/components/finvanta/scenario-context";
-import { conversions, getDiagnosticInsights, largestDropoff, num, pct, type Stage } from "@/data/scenarios";
+import { conversions, getDiagnosticInsights, largestDropoff, largestAbsoluteGap, num, pct, type Stage } from "@/data/scenarios";
 
 const SECTIONS = [
   { id: "overview", label: "Overview", lede: "The four facility stages of the benefit, as observed." },
@@ -159,13 +159,22 @@ function Regional() {
 
 function Insights({ stages }: { stages: Stage[] }) {
   const { bottleneck, hypothesis, investigation } = getDiagnosticInsights(stages);
+  const largestAbsolute = largestAbsoluteGap(stages);
   return (
     <ol className="relative space-y-6 border-l pl-6">
       <Step kind="observed" n={1} title="What the data show">
-        {bottleneck.name} has the lowest stage conversion: {pct(bottleneck.rate)} ({num(bottleneck.to.count)} of {num(bottleneck.from.count)} eligible facilities).
+        <strong>Conversion rate:</strong> {bottleneck.name} has the lowest stage conversion at {pct(bottleneck.rate)} ({num(bottleneck.to.count)} of {num(bottleneck.from.count)} facilities progress to the next stage).
+        <br /><br />
+        <strong>Absolute gap:</strong> {num(largestAbsolute.gap)}-facility gap between {largestAbsolute.from.label.toLowerCase()} ({num(largestAbsolute.from.count)}) and {largestAbsolute.to.label.toLowerCase()} ({num(largestAbsolute.to.count)}).
+        {bottleneck.key !== largestAbsolute.key && (
+          <>
+            <br /><br />
+            <span className="text-accent">Note: The proportional bottleneck ({bottleneck.name}) and largest absolute gap ({largestAbsolute.name}) occur at different stages.</span>
+          </>
+        )}
       </Step>
       <Step kind="rule" n={2} title="What the rule concludes">
-        The stage with the lowest conversion is flagged as the largest proportional drop-off. This locates the drop-off; it does not explain it.
+        Finvanta identifies the stage with the lowest conversion rate as the proportional drop-off. This locates where the largest percentage of facilities do not progress, but does not determine the most actionable intervention point or explain causation.
       </Step>
       <Step kind="possible" n={3} title="What might explain it">
         {hypothesis}
@@ -174,7 +183,7 @@ function Insights({ stages }: { stages: Stage[] }) {
         {investigation}
       </Step>
       <li className="text-xs text-muted-foreground">
-        Finvanta uses predefined rule-based logic. No AI model generates these findings.
+        These findings identify where progression through the implementation cascade is limited. They do not establish why the gaps occur or which interventions would be effective. Further investigation is needed.
       </li>
     </ol>
   );

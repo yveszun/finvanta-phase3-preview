@@ -9,11 +9,14 @@ export function Shell({ children }: { children: ReactNode }) {
     "rounded-full px-4 py-1.5 text-sm text-muted-foreground transition-colors hover:text-foreground";
   return (
     <div className="min-h-screen">
-      <div className="relative z-10 bg-ink text-ink-foreground" role="note" aria-label="Data disclosure">
-        <div className="mx-auto flex max-w-6xl items-center gap-2 px-5 py-2 text-xs">
-          <span className="inline-block h-1.5 w-1.5 shrink-0 rounded-full bg-accent" aria-hidden />
-          <span className="min-w-0">Synthetic demonstration data. Not actual PhilHealth performance.</span>
-          <span className="ml-auto hidden text-ink-muted sm:inline">Rule-based diagnostics · Design prototype</span>
+      <div className="relative z-10 border-b bg-blue-50 dark:bg-blue-950 border-blue-200 dark:border-blue-800" role="status" aria-label="Data disclosure">
+        <div className="mx-auto flex max-w-6xl items-center gap-3 px-5 py-2.5">
+          <svg className="h-4 w-4 shrink-0 text-blue-600 dark:text-blue-400" fill="currentColor" viewBox="0 0 20 20" aria-hidden>
+            <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a.75.75 0 000 1.5h.253a.25.25 0 01.244.304l-.459 2.066A1.75 1.75 0 0010.747 15H11a.75.75 0 000-1.5h-.253a.25.25 0 01-.244-.304l.459-2.066A1.75 1.75 0 009.253 9H9z" clipRule="evenodd" />
+          </svg>
+          <span className="min-w-0 text-sm text-blue-900 dark:text-blue-100">
+            <strong className="font-semibold">Illustrative demonstration:</strong> All data shown are synthetic scenarios, not actual PhilHealth records.
+          </span>
         </div>
       </div>
       <header className="border-b bg-background/90 backdrop-blur">
@@ -43,6 +46,7 @@ export function Shell({ children }: { children: ReactNode }) {
                 </option>
               ))}
             </select>
+            <span className="mt-1 text-[11px] text-muted-foreground">Synthetic scenarios based on illustrative implementation patterns</span>
           </label>
         </div>
       </header>

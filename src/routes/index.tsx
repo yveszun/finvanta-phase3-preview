@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { Shell, Tag, Unavailable } from "@/components/finvanta/Shell";
 import { Cascade } from "@/components/finvanta/Cascade";
 import { useScenario } from "@/components/finvanta/scenario-context";
-import { conversions, getDiagnosticInsights, largestDropoff, num, pct, type Stage } from "@/data/scenarios";
+import { conversions, getDiagnosticInsights, largestDropoff, largestAbsoluteGap, num, pct, type Stage } from "@/data/scenarios";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -27,6 +27,7 @@ function Content({ stages, name }: { stages: Stage[]; name: string }) {
   const worst = largestDropoff(stages);
   const convs = conversions(stages);
   const { investigation } = getDiagnosticInsights(stages);
+  const largestAbsolute = largestAbsoluteGap(stages);
 
   return (
     <div className="space-y-7 sm:space-y-8">
@@ -59,7 +60,16 @@ function Content({ stages, name }: { stages: Stage[]; name: string }) {
             <Tag kind="rule" />
             <h3 className="mt-3 font-display text-2xl leading-snug sm:text-3xl">Largest proportional drop-off: {worst.name.toLowerCase()}.</h3>
             <p className="mt-2 text-sm text-muted-foreground">
-              Only {pct(worst.rate)} of eligible facilities progressed through this stage in the illustrative dataset ({num(worst.to.count)} of {num(worst.from.count)}). This locates the drop-off; it does not establish its cause.
+              Only {pct(worst.rate)} of facilities progress through this stage ({num(worst.to.count)} of {num(worst.from.count)} facilities). This locates where the proportional drop-off is largest, but does not establish its cause.
+            </p>
+            <p className="mt-3 text-xs text-muted-foreground">
+              <strong>Proportional:</strong> {worst.name} has the lowest conversion rate ({pct(worst.rate)}).{' '}
+              <strong>Absolute:</strong> {num(largestAbsolute.gap)}-facility gap between {largestAbsolute.from.label.toLowerCase()} and {largestAbsolute.to.label.toLowerCase()}.
+              {worst.key === largestAbsolute.key ? (
+                <span> Proportional and absolute measures both identify this stage.</span>
+              ) : (
+                <span className="text-accent"> Note: Proportional and absolute measures identify different stages.</span>
+              )}
             </p>
           </article>
           <article className="rounded-lg bg-accent-soft p-5">
@@ -67,7 +77,9 @@ function Content({ stages, name }: { stages: Stage[]; name: string }) {
             <p className="mt-3 font-display text-xl leading-snug">
               {investigation}
             </p>
-            <p className="mt-2 text-xs text-muted-foreground">Rule-based suggestion triggered by the lowest stage conversion. Not AI-generated.</p>
+            <p className="mt-2 text-xs text-muted-foreground">
+              These findings identify where progression through the implementation cascade is limited. They do not establish why the gaps occur or which interventions would be effective. Further investigation is needed.
+            </p>
           </article>
           <Link to="/explore" search={{ section: "insights" }} className="inline-flex text-sm font-medium underline decoration-accent underline-offset-4 hover:text-accent">
             See the reasoning in Explore the Evidence →
