@@ -14,7 +14,7 @@ export function HypothesisCard({ hypothesis }: HypothesisCardProps) {
   const [expanded, setExpanded] = useState(false);
 
   return (
-    <div className="rounded-lg border bg-card">
+    <div className="rounded-lg border bg-card @container">
       <button
         onClick={() => setExpanded(!expanded)}
         className="w-full px-5 py-4 text-left transition-colors hover:bg-accent/5"
@@ -55,8 +55,8 @@ export function HypothesisCard({ hypothesis }: HypothesisCardProps) {
             <p className="mt-1.5 text-sm leading-relaxed">{hypothesis.statement}</p>
           </div>
 
-          {/* Two-column layout on desktop */}
-          <div className="grid gap-6 lg:grid-cols-2">
+          {/* Container query: two columns when container is 800px+ wide */}
+          <div className="grid gap-6 @[800px]:grid-cols-2">
             {/* Left Column: Plausibility & Context */}
             <div className="space-y-4">
               {/* Plausibility Basis */}
@@ -113,12 +113,12 @@ export function HypothesisCard({ hypothesis }: HypothesisCardProps) {
             </div>
           </div>
 
-          {/* Data Needed - Full Width */}
+          {/* Data Needed - Container query: two columns when 600px+ wide */}
           <div className="mt-4">
             <h5 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
               Data Needed to Verify or Refute
             </h5>
-            <div className="mt-2 grid gap-4 sm:grid-cols-2">
+            <div className="mt-2 grid gap-4 @[600px]:grid-cols-2">
               <div>
                 <span className="text-sm font-medium text-green-600 dark:text-green-400">To Verify (would support):</span>
                 <ul className="mt-1 space-y-0.5 text-sm text-muted-foreground">
