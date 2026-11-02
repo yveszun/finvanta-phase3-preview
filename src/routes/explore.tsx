@@ -3,7 +3,7 @@ import type { ReactNode } from "react";
 import { Shell, Tag, Unavailable } from "@/components/finvanta/Shell";
 import { Cascade } from "@/components/finvanta/Cascade";
 import { useScenario } from "@/components/finvanta/scenario-context";
-import { conversions, largestDropoff, num, pct, type Stage } from "@/data/scenarios";
+import { conversions, getDiagnosticInsights, largestDropoff, num, pct, type Stage } from "@/data/scenarios";
 
 const SECTIONS = [
   { id: "overview", label: "Overview", lede: "The four facility stages of the benefit, as observed." },
@@ -158,20 +158,20 @@ function Regional() {
 }
 
 function Insights({ stages }: { stages: Stage[] }) {
-  const w = largestDropoff(stages);
+  const { bottleneck, hypothesis, investigation } = getDiagnosticInsights(stages);
   return (
     <ol className="relative space-y-6 border-l pl-6">
       <Step kind="observed" n={1} title="What the data show">
-        {w.name} has the lowest stage conversion: {pct(w.rate)} ({num(w.to.count)} of {num(w.from.count)} eligible facilities).
+        {bottleneck.name} has the lowest stage conversion: {pct(bottleneck.rate)} ({num(bottleneck.to.count)} of {num(bottleneck.from.count)} eligible facilities).
       </Step>
       <Step kind="rule" n={2} title="What the rule concludes">
         The stage with the lowest conversion is flagged as the largest proportional drop-off. This locates the drop-off; it does not explain it.
       </Step>
       <Step kind="possible" n={3} title="What might explain it">
-        Accreditation requirements may be demanding relative to facility readiness, or administrative processes may be slow. These are hypotheses to test, not findings.
+        {hypothesis}
       </Step>
       <Step kind="investigate" n={4} title="What to investigate next">
-        Examine facility accreditation requirements, readiness, and administrative processes to understand the observed drop-off.
+        {investigation}
       </Step>
       <li className="text-xs text-muted-foreground">
         Finvanta uses predefined rule-based logic. No AI model generates these findings.
