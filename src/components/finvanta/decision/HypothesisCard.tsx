@@ -48,11 +48,11 @@ export function HypothesisCard({ hypothesis }: HypothesisCardProps) {
       </button>
 
       {expanded && (
-        <div className="space-y-4 border-t px-5 py-4">
+        <div className="space-y-4 border-t px-4 py-3 sm:px-5 sm:py-4">
           {/* Statement */}
           <div>
             <h5 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Statement</h5>
-            <p className="mt-1 text-sm">{hypothesis.statement}</p>
+            <p className="mt-1.5 text-sm leading-relaxed">{hypothesis.statement}</p>
           </div>
 
           {/* Plausibility Basis */}
@@ -60,18 +60,18 @@ export function HypothesisCard({ hypothesis }: HypothesisCardProps) {
             <h5 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
               Why This Is Plausible
             </h5>
-            <div className="mt-2 space-y-2 text-sm">
+            <div className="mt-1.5 space-y-2 text-sm">
               <div>
                 <span className="font-medium">Theory:</span>
-                <p className="mt-0.5 text-muted-foreground">{hypothesis.plausibilityBasis.theory}</p>
+                <p className="mt-0.5 leading-relaxed text-muted-foreground">{hypothesis.plausibilityBasis.theory}</p>
               </div>
               <div>
                 <span className="font-medium">Analogous Cases:</span>
-                <p className="mt-0.5 text-muted-foreground">{hypothesis.plausibilityBasis.analogousCases}</p>
+                <p className="mt-0.5 leading-relaxed text-muted-foreground">{hypothesis.plausibilityBasis.analogousCases}</p>
               </div>
               <div>
                 <span className="font-medium">Context:</span>
-                <p className="mt-0.5 text-muted-foreground">{hypothesis.plausibilityBasis.contextualFactors}</p>
+                <p className="mt-0.5 leading-relaxed text-muted-foreground">{hypothesis.plausibilityBasis.contextualFactors}</p>
               </div>
             </div>
           </div>
@@ -81,25 +81,25 @@ export function HypothesisCard({ hypothesis }: HypothesisCardProps) {
             <h5 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
               Verification Status
             </h5>
-            <div className="mt-2 space-y-2 text-sm">
+            <div className="mt-1.5 space-y-2 text-sm">
               <div>
                 <span className="font-medium">Direct Evidence:</span>
-                <p className="mt-0.5 text-muted-foreground">{hypothesis.verificationStatus.directEvidence}</p>
+                <p className="mt-0.5 leading-relaxed text-muted-foreground">{hypothesis.verificationStatus.directEvidence}</p>
               </div>
               <div>
                 <span className="font-medium">Alternative Explanations:</span>
-                <ul className="mt-1 space-y-1 text-muted-foreground">
+                <ul className="mt-1 space-y-0.5 text-muted-foreground">
                   {hypothesis.verificationStatus.alternativeExplanations.map((alt) => (
-                    <li key={alt} className="flex gap-2">
+                    <li key={alt} className="flex gap-2 leading-relaxed">
                       <span className="text-accent">•</span>
-                      {alt}
+                      <span className="flex-1">{alt}</span>
                     </li>
                   ))}
                 </ul>
               </div>
               <div>
                 <span className="font-medium">Quantified Contribution:</span>
-                <p className="mt-0.5 text-muted-foreground">{hypothesis.verificationStatus.quantifiedContribution}</p>
+                <p className="mt-0.5 leading-relaxed text-muted-foreground">{hypothesis.verificationStatus.quantifiedContribution}</p>
               </div>
             </div>
           </div>
@@ -109,25 +109,28 @@ export function HypothesisCard({ hypothesis }: HypothesisCardProps) {
             <h5 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
               Data Needed to Verify or Refute
             </h5>
-            <div className="mt-2 space-y-3 text-sm">
+            <p className="mt-1 text-xs italic text-muted-foreground">
+              Illustrative verification criteria — specific thresholds would require empirical justification
+            </p>
+            <div className="mt-2 space-y-2.5 text-sm">
               <div>
                 <span className="font-medium text-green-600 dark:text-green-400">To Verify (would support):</span>
-                <ul className="mt-1 space-y-1 text-muted-foreground">
+                <ul className="mt-0.5 space-y-0.5 text-muted-foreground">
                   {hypothesis.verificationData.toVerify.map((item, i) => (
-                    <li key={i} className="flex gap-2">
+                    <li key={i} className="flex gap-2 leading-relaxed">
                       <span className="text-green-600 dark:text-green-400">✓</span>
-                      {item}
+                      <span className="flex-1">{item}</span>
                     </li>
                   ))}
                 </ul>
               </div>
               <div>
                 <span className="font-medium text-red-600 dark:text-red-400">To Refute (would contradict):</span>
-                <ul className="mt-1 space-y-1 text-muted-foreground">
+                <ul className="mt-0.5 space-y-0.5 text-muted-foreground">
                   {hypothesis.verificationData.toRefute.map((item, i) => (
-                    <li key={i} className="flex gap-2">
+                    <li key={i} className="flex gap-2 leading-relaxed">
                       <span className="text-red-600 dark:text-red-400">✗</span>
-                      {item}
+                      <span className="flex-1">{item}</span>
                     </li>
                   ))}
                 </ul>
@@ -136,7 +139,7 @@ export function HypothesisCard({ hypothesis }: HypothesisCardProps) {
           </div>
 
           {/* Disclaimer */}
-          <div className="rounded border-l-4 border-amber-500 bg-amber-50 p-3 text-xs dark:bg-amber-950/20">
+          <div className="rounded border-l-4 border-amber-500 bg-amber-50 p-3 text-xs leading-relaxed dark:bg-amber-950/20">
             <p className="font-medium text-amber-900 dark:text-amber-100">
               This is a plausible hypothesis requiring verification.
             </p>

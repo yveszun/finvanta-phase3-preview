@@ -18,6 +18,7 @@ import { DECISION_KNOWLEDGE, type Hypothesis, type ResponseOption, type Indicato
  */
 export interface DecisionContext {
   scenario: Scenario;
+  stageName: string;
   primaryGap: {
     stage: CascadeStage;
     proportionalRate: number;
@@ -78,6 +79,7 @@ function buildDecisionContext(scenario: Scenario): DecisionContext {
 
   return {
     scenario,
+    stageName: proportionalGap.name,
     primaryGap: {
       stage: proportionalGap.key as CascadeStage,
       proportionalRate: proportionalGap.rate,

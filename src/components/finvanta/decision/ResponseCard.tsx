@@ -56,30 +56,30 @@ export function ResponseCard({ response }: ResponseCardProps) {
       </button>
 
       {expanded && (
-        <div className="space-y-4 border-t px-5 py-4">
+        <div className="space-y-4 border-t px-4 py-3 sm:px-5 sm:py-4">
           {/* Description */}
           <div>
             <h5 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Description</h5>
-            <p className="mt-1 text-sm">{response.description}</p>
+            <p className="mt-1.5 text-sm leading-relaxed">{response.description}</p>
           </div>
 
           {/* Key Assumptions */}
-          <div className="rounded-lg bg-amber-50 p-4 dark:bg-amber-950/20">
+          <div className="rounded-lg bg-amber-50 p-3 dark:bg-amber-950/20">
             <h5 className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-amber-900 dark:text-amber-100">
               <svg className="h-4 w-4" fill="currentColor" viewBox="0 0 20 20">
                 <path fillRule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
               </svg>
               Key Assumptions (Require Validation)
             </h5>
-            <div className="mt-3 space-y-3 text-sm">
+            <div className="mt-2.5 space-y-2.5 text-sm">
               {response.assumptions.institutional.length > 0 && (
                 <div>
                   <span className="font-medium text-amber-900 dark:text-amber-100">Institutional:</span>
-                  <ul className="mt-1 space-y-1">
+                  <ul className="mt-0.5 space-y-0.5">
                     {response.assumptions.institutional.map((item, i) => (
-                      <li key={i} className="flex gap-2 text-amber-800 dark:text-amber-200">
-                        <span>⚠</span>
-                        {item}
+                      <li key={i} className="flex gap-2 text-amber-800 dark:text-amber-200 leading-relaxed">
+                        <span className="shrink-0">⚠</span>
+                        <span className="flex-1">{item}</span>
                       </li>
                     ))}
                   </ul>
@@ -88,11 +88,11 @@ export function ResponseCard({ response }: ResponseCardProps) {
               {response.assumptions.temporal.length > 0 && (
                 <div>
                   <span className="font-medium text-amber-900 dark:text-amber-100">Temporal:</span>
-                  <ul className="mt-1 space-y-1">
+                  <ul className="mt-0.5 space-y-0.5">
                     {response.assumptions.temporal.map((item, i) => (
-                      <li key={i} className="flex gap-2 text-amber-800 dark:text-amber-200">
-                        <span>⚠</span>
-                        {item}
+                      <li key={i} className="flex gap-2 text-amber-800 dark:text-amber-200 leading-relaxed">
+                        <span className="shrink-0">⚠</span>
+                        <span className="flex-1">{item}</span>
                       </li>
                     ))}
                   </ul>
@@ -101,11 +101,11 @@ export function ResponseCard({ response }: ResponseCardProps) {
               {response.assumptions.financial.length > 0 && (
                 <div>
                   <span className="font-medium text-amber-900 dark:text-amber-100">Financial:</span>
-                  <ul className="mt-1 space-y-1">
+                  <ul className="mt-0.5 space-y-0.5">
                     {response.assumptions.financial.map((item, i) => (
-                      <li key={i} className="flex gap-2 text-amber-800 dark:text-amber-200">
-                        <span>⚠</span>
-                        {item}
+                      <li key={i} className="flex gap-2 text-amber-800 dark:text-amber-200 leading-relaxed">
+                        <span className="shrink-0">⚠</span>
+                        <span className="flex-1">{item}</span>
                       </li>
                     ))}
                   </ul>
@@ -114,11 +114,11 @@ export function ResponseCard({ response }: ResponseCardProps) {
               {response.assumptions.legal.length > 0 && (
                 <div>
                   <span className="font-medium text-amber-900 dark:text-amber-100">Legal:</span>
-                  <ul className="mt-1 space-y-1">
+                  <ul className="mt-0.5 space-y-0.5">
                     {response.assumptions.legal.map((item, i) => (
-                      <li key={i} className="flex gap-2 text-amber-800 dark:text-amber-200">
-                        <span>⚠</span>
-                        {item}
+                      <li key={i} className="flex gap-2 text-amber-800 dark:text-amber-200 leading-relaxed">
+                        <span className="shrink-0">⚠</span>
+                        <span className="flex-1">{item}</span>
                       </li>
                     ))}
                   </ul>
@@ -132,11 +132,11 @@ export function ResponseCard({ response }: ResponseCardProps) {
             <h5 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
               Validation Needed Before Implementation
             </h5>
-            <ul className="mt-2 space-y-1 text-sm">
+            <ul className="mt-1.5 space-y-0.5 text-sm">
               {response.validationNeeded.map((item, i) => (
-                <li key={i} className="flex gap-2 text-muted-foreground">
-                  <span className="text-accent">{i + 1}.</span>
-                  {item}
+                <li key={i} className="flex gap-2 text-muted-foreground leading-relaxed">
+                  <span className="shrink-0 text-accent">{i + 1}.</span>
+                  <span className="flex-1">{item}</span>
                 </li>
               ))}
             </ul>
@@ -147,11 +147,11 @@ export function ResponseCard({ response }: ResponseCardProps) {
             <h5 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
               Prerequisites (Assuming Validation Confirms Assumptions)
             </h5>
-            <ul className="mt-2 space-y-1 text-sm">
+            <ul className="mt-1.5 space-y-0.5 text-sm">
               {response.prerequisites.map((item, i) => (
-                <li key={i} className="flex gap-2 text-muted-foreground">
-                  <span className="text-accent">✓</span>
-                  {item}
+                <li key={i} className="flex gap-2 text-muted-foreground leading-relaxed">
+                  <span className="shrink-0 text-accent">✓</span>
+                  <span className="flex-1">{item}</span>
                 </li>
               ))}
             </ul>
@@ -160,11 +160,11 @@ export function ResponseCard({ response }: ResponseCardProps) {
           {/* Trade-offs */}
           <div>
             <h5 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Trade-offs and Risks</h5>
-            <ul className="mt-2 space-y-1 text-sm">
+            <ul className="mt-1.5 space-y-0.5 text-sm">
               {response.tradeoffs.map((item, i) => (
-                <li key={i} className="flex gap-2 text-muted-foreground">
-                  <span className="text-amber-600 dark:text-amber-400">⚠</span>
-                  {item}
+                <li key={i} className="flex gap-2 text-muted-foreground leading-relaxed">
+                  <span className="shrink-0 text-amber-600 dark:text-amber-400">⚠</span>
+                  <span className="flex-1">{item}</span>
                 </li>
               ))}
             </ul>
@@ -173,11 +173,11 @@ export function ResponseCard({ response }: ResponseCardProps) {
           {/* Timeframe */}
           <div>
             <h5 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Timeframe</h5>
-            <p className="mt-1 text-sm text-muted-foreground">{response.timeframeNote}</p>
+            <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">{response.timeframeNote}</p>
           </div>
 
           {/* Disclaimer */}
-          <div className="rounded border-l-4 border-blue-500 bg-blue-50 p-3 text-xs dark:bg-blue-950/20">
+          <div className="rounded border-l-4 border-blue-500 bg-blue-50 p-3 text-xs leading-relaxed dark:bg-blue-950/20">
             <p className="font-medium text-blue-900 dark:text-blue-100">
               This response option contains unvalidated assumptions.
             </p>

@@ -14,10 +14,10 @@ export function DecisionSection({ hypotheses, responses }: DecisionSectionProps)
   return (
     <div className="space-y-4">
       {/* Tab Navigation */}
-      <div className="flex gap-1 border-b">
+      <div className="flex gap-1 border-b overflow-x-auto">
         <button
           onClick={() => setActiveTab("hypotheses")}
-          className={`px-4 py-2 text-sm font-medium transition-colors -mb-px border-b-2 ${
+          className={`px-3 py-2 text-sm font-medium transition-colors -mb-px border-b-2 whitespace-nowrap sm:px-4 ${
             activeTab === "hypotheses"
               ? "border-accent text-foreground"
               : "border-transparent text-muted-foreground hover:text-foreground"
@@ -28,7 +28,7 @@ export function DecisionSection({ hypotheses, responses }: DecisionSectionProps)
         </button>
         <button
           onClick={() => setActiveTab("responses")}
-          className={`px-4 py-2 text-sm font-medium transition-colors -mb-px border-b-2 ${
+          className={`px-3 py-2 text-sm font-medium transition-colors -mb-px border-b-2 whitespace-nowrap sm:px-4 ${
             activeTab === "responses"
               ? "border-accent text-foreground"
               : "border-transparent text-muted-foreground hover:text-foreground"
